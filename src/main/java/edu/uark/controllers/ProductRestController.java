@@ -19,6 +19,7 @@ import edu.uark.models.api.ProductListing;
 @RestController
 @RequestMapping(value = "/product")
 public class ProductRestController {
+	//Is this where we add the functionality for the transactions?
 	@RequestMapping(value = "/apiv0/{productId}", method = RequestMethod.GET)
 	public Product getProduct(@PathVariable UUID productId) {
 		return (new ProductQuery()).
