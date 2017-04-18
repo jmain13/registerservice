@@ -17,6 +17,7 @@ import edu.uark.models.repositories.ProductRepository;
 public class ProductEntity extends BaseEntity<ProductEntity> {
 	@Override
 	protected void fillFromRecord(ResultSet rs) throws SQLException {
+		this.id = rs.getObject(ProductFieldNames.ID);
 		this.lookupCode = rs.getString(ProductFieldNames.LOOKUP_CODE);
 		this.quantity = rs.getInt(ProductFieldNames.QUANTITY);
 		this.price = rs.getDouble(ProductFieldNames.PRICE);
@@ -26,6 +27,7 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 
 	@Override
 	protected Map<String, Object> fillRecord(Map<String, Object> record) {
+		record.put(ProductFieldNames.ID, this.id);
 		record.put(ProductFieldNames.LOOKUP_CODE, this.lookupCode);
 		record.put(ProductFieldNames.QUANTITY, this.quantity);
 		record.put(ProductFieldNames.PRICE, this.price);
@@ -35,6 +37,19 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 		return record;
 	}
 
+	private UUID id;
+	public UUID getID() {
+		return this.id;
+	}
+	public ProductEntity setID(UUID id) {
+		if (this.id.compareTo(id) == 0) {
+			this.id = id;
+			this.propertyChanged(ProductFieldNames.ID);
+		}
+		
+		return this;
+	}
+	
 	private String lookupCode;
 	public String getLookupCode() {
 		return this.lookupCode;
