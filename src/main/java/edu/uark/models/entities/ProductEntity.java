@@ -18,7 +18,9 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 	@Override
 	protected void fillFromRecord(ResultSet rs) throws SQLException {
 		this.lookupCode = rs.getString(ProductFieldNames.LOOKUP_CODE);
-		this.count = rs.getInt(ProductFieldNames.COUNT);
+		this.quantity = rs.getInt(ProductFieldNames.QUANTITY);
+		this.price = rs.getDouble(ProductFieldNames.PRICE);
+		this.active = rs.getBoolean(ProductFieldNames.ACTIVE);
 		this.createdOn = rs.getTimestamp(ProductFieldNames.CREATED_ON).toLocalDateTime();
 	}
 
@@ -26,6 +28,8 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 	protected Map<String, Object> fillRecord(Map<String, Object> record) {
 		record.put(ProductFieldNames.LOOKUP_CODE, this.lookupCode);
 		record.put(ProductFieldNames.QUANTITY, this.quantity);
+		record.put(ProductFieldNames.PRICE, this.price);
+		record.put(ProductFieldNames.ACTIVE, this.active);
 		record.put(ProductFieldNames.CREATED_ON, Timestamp.valueOf(this.createdOn));
 		
 		return record;
@@ -74,7 +78,7 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 	public boolean getActive() {
 		return this.active;
 	}
-	public ProductEntity setActive(int active) {
+	public ProductEntity setActive(boolean active) {
 		if (this.active != active) {
 			this.active = active;
 			this.propertyChanged(ProductFieldNames.ACTIVE);
@@ -87,7 +91,7 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 	public LocalDateTime getCreatedOn() {
 		return this.createdOn;
 	}
-	public ProductEntity setCreatedOn(int createdOn) {
+	public ProductEntity setCreatedOn(LocalDateTime createdOn) {
 		if (this.createdOn != createdOn) {
 			this.createdOn = createdOn;
 			this.propertyChanged(ProductFieldNames.ACTIVE);
@@ -97,7 +101,7 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 	}
 
 	public Product synchronize(Product apiProduct) {
-		this.setCount(apiProduct.getCount());
+		this.setQuantity(apiProduct.getQuantity());
 		this.setLookupCode(apiProduct.getLookupCode());
 		
 		apiProduct.setCreatedOn(this.createdOn);
@@ -109,6 +113,8 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 		super(new ProductRepository());
 		
 		this.quantity = 0;
+		this.price = 0.00;
+		this.active = false;
 		this.lookupCode = StringUtils.EMPTY;
 		this.createdOn = LocalDateTime.now();
 	}
@@ -117,6 +123,8 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 		super(id, new ProductRepository());
 		
 		this.quantity = 0;
+		this.price = 0.00;
+		this.active = false;
 		this.lookupCode = StringUtils.EMPTY;
 		this.createdOn = LocalDateTime.now();
 	}
@@ -124,7 +132,9 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 	public ProductEntity(Product apiProduct) {
 		super(apiProduct.getId(), new ProductRepository());
 		
-		this.count = apiProduct.getCount();
+		this.quantity = apiProduct.getQuantity();
+		this.price = apiProduct.getPrice();
+		this.active = apiProduct.getActive();
 		this.lookupCode = apiProduct.getLookupCode();
 
 		this.createdOn = LocalDateTime.now();
