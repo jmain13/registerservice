@@ -44,19 +44,58 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 		return this;
 	}
 
-	private int count;
-	public int getCount() {
+	private int quantity;
+	public int getQuantity() {
 		return this.count;
 	}
-	public ProductEntity setCount(int count) {
-		if (this.count != count) {
-			this.count = count;
+	public ProductEntity setQuantity(int quantity) {
+		if (this.quantity != quantity) {
+			this.quantity = quantity;
 			this.propertyChanged(ProductFieldNames.COUNT);
 		}
 		
 		return this;
 	}
 
+	
+	
+	
+	
+	
+	
+	private int quantity;
+	public int getQuantity() {
+		return this.count;
+	}
+	public Product setQuantity(int quantity) {
+		this.quantity = quantity;
+		return this;
+	}
+	
+	private double price;
+	public double getPrice() {
+		return this.price;
+	}
+	public Product setPrice(double price) {
+		this.price = price;
+		return this;
+	}
+	
+	private boolean active;
+	public boolean getActive() {
+		return this.active;
+	}
+	public Product setActive(boolean active) {
+		this.active = active;
+		return this;
+	}
+	
+	
+	
+	
+	
+	
+	
 	private LocalDateTime createdOn;
 	public LocalDateTime getCreatedOn() {
 		return this.createdOn;
