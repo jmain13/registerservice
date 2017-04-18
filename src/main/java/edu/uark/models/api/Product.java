@@ -27,12 +27,30 @@ public class Product {
 		return this;
 	}
 	
-	private int count;
-	public int getCount() {
+	private int quantity;
+	public int getQuantity() {
 		return this.count;
 	}
-	public Product setCount(int count) {
-		this.count = count;
+	public Product setQuantity(int quantity) {
+		this.quantity = quantity;
+		return this;
+	}
+	
+	private double price;
+	public double getPrice() {
+		return this.price;
+	}
+	public Product setPrice(double price) {
+		this.price = price;
+		return this;
+	}
+	
+	private boolean active;
+	public boolean getActive() {
+		return this.active;
+	}
+	public Product setActive(boolean active) {
+		this.active = active;
 		return this;
 	}
 	
@@ -70,9 +88,11 @@ public class Product {
 	}
 	
 	public Product() {
-		this.count = -1;
+		this.quantity = 0;
 		this.lookupCode = "";
 		this.id = new UUID(0, 0);
+		this.price = 0.0;
+		this.active = false;
 		this.createdOn = LocalDateTime.now();
 		this.apiRequestMessage = StringUtils.EMPTY;
 		this.apiRequestStatus = ProductApiRequestStatus.OK;
@@ -80,10 +100,12 @@ public class Product {
 	
 	public Product(ProductEntity productEntity) {
 		this.id = productEntity.getId();
-		this.count = productEntity.getCount();
+		this.quantity = productEntity.getQuantity();
 		this.createdOn = productEntity.getCreatedOn();
 		this.lookupCode = productEntity.getLookupCode();
-
+		this.price = productEntity.getPrice();
+		this.active = productEntity.getActive();
+		
 		this.apiRequestMessage = StringUtils.EMPTY;
 		this.apiRequestStatus = ProductApiRequestStatus.OK;
 	}
