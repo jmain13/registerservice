@@ -109,7 +109,7 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 	public ProductEntity setCreatedOn(LocalDateTime createdOn) {
 		if (this.createdOn != createdOn) {
 			this.createdOn = createdOn;
-			this.propertyChanged(ProductFieldNames.ACTIVE);
+			this.propertyChanged(ProductFieldNames.CREATED_ON);
 		}
 		
 		return this;
