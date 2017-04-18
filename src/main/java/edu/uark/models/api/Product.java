@@ -29,7 +29,7 @@ public class Product {
 	
 	private int quantity;
 	public int getQuantity() {
-		return this.count;
+		return this.quantity;
 	}
 	public Product setQuantity(int quantity) {
 		this.quantity = quantity;
