@@ -112,14 +112,13 @@ public class TransactionEntryEntity extends BaseEntity<TransactionEntryEntity> {
 		
 		this.entryId = new UUID(0,0);
 		this.fromTransaction = new UUID(0,0);
-		this.plu = "";
+		this.plu = StringUtils.EMPTY;
 		this.amount = 0;
 		this.soldAt = 0;
 	}
 	
 	public TransactionEntryEntity(TransactionEntry apiTransactionEntry){
 		super(apiTransactionEntry.getentryId(), new TransactionEntryRepository());
-		
 		this.entryId = apiTransactionEntry.getentryId();
 		this.fromTransaction = apiTransactionEntry.getfromTransaction();
 		this.plu = apiTransactionEntry.getplu();

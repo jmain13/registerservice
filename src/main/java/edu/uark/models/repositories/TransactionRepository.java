@@ -1,6 +1,7 @@
 package edu.uark.models.repositories;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 import edu.uark.dataaccess.repository.BaseRepository;
 import edu.uark.dataaccess.repository.DatabaseTable;

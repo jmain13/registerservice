@@ -130,7 +130,7 @@ public class Employee {
 	}
 	
 	public Employee(EmployeeEntity employeeEntity) {
-		this.id = employeeEntity.getId();
+		this.id = employeeEntity.getID();
 		this.password = StringUtils.EMPTY;
 		this.active = employeeEntity.getActive();
 		this.lastName = employeeEntity.getLastName();

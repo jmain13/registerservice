@@ -10,10 +10,10 @@ import edu.uark.models.entities.ProductEntity;
 
 public class Product {
 	private UUID id;
-	public UUID getId() {
+	public UUID getID() {
 		return this.id;
 	}
-	public Product setId(UUID id) {
+	public Product setID(UUID id) {
 		this.id = id;
 		return this;
 	}
@@ -99,7 +99,7 @@ public class Product {
 	}
 	
 	public Product(ProductEntity productEntity) {
-		this.id = productEntity.getId();
+		this.id = productEntity.getID();
 		this.quantity = productEntity.getQuantity();
 		this.createdOn = productEntity.getCreatedOn();
 		this.lookupCode = productEntity.getLookupCode();

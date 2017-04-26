@@ -49,7 +49,7 @@ public class EmployeeSaveCommand implements ResultCommandInterface<Employee> {
 		
 		employeeEntity.save();
 		if ((new UUID(0, 0)).equals(this.apiEmployee.getId())) {
-			this.apiEmployee.setId(employeeEntity.getId());
+			this.apiEmployee.setId(employeeEntity.getID());
 		}
 		
 		return this.apiEmployee;

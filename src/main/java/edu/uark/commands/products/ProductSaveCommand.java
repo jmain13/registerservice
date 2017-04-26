@@ -18,7 +18,7 @@ public class ProductSaveCommand implements ResultCommandInterface<Product> {
 			return (new Product()).setApiRequestStatus(ProductApiRequestStatus.INVALID_INPUT);
 		}
 		
-		ProductEntity productEntity = this.productRepository.get(this.apiProduct.getId());
+		ProductEntity productEntity = this.productRepository.get(this.apiProduct.getID());
 		if (productEntity != null) {
 			this.apiProduct = productEntity.synchronize(this.apiProduct);
 		} else {
@@ -31,8 +31,8 @@ public class ProductSaveCommand implements ResultCommandInterface<Product> {
 		}
 		
 		productEntity.save();
-		if ((new UUID(0, 0)).equals(this.apiProduct.getId())) {
-			this.apiProduct.setId(productEntity.getId());
+		if ((new UUID(0, 0)).equals(this.apiProduct.getID())) {
+			this.apiProduct.setID(productEntity.getID());
 		}
 		
 		return this.apiProduct;

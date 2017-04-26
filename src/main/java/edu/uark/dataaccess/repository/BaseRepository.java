@@ -83,7 +83,7 @@ public abstract class BaseRepository<T extends BaseEntity<T>> implements BaseRep
 				connection.setAutoCommit(false);
 				
 				for (T model : allToSave) {
-					lastAttemptedId = model.getId();
+					lastAttemptedId = model.getID();
 					model.save(connection);
 				}
 
@@ -131,7 +131,7 @@ public abstract class BaseRepository<T extends BaseEntity<T>> implements BaseRep
 				connection.setAutoCommit(false);
 				
 				for (T model : allToDelete) {
-					lastAttemptedId = model.getId();
+					lastAttemptedId = model.getID();
 					model.delete(connection);
 				}
 

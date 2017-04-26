@@ -1,4 +1,4 @@
-package edu.uark.commands.transactions;
+package edu.uark.commands.transaction;
 
 import java.util.UUID;
 
@@ -18,7 +18,7 @@ public class TransactionSaveCommand implements ResultCommandInterface<Transactio
 			return (new Transaction()).setApiRequestStatus(TransactionApiRequestStatus.INVALID_INPUT);
 		}
 		
-		TransactionEntity transactionEntity = this.transactionRepository.get(this.apiTransaction.getRecordId());
+		TransactionEntity transactionEntity = this.transactionRepository.get(this.apiTransaction.getRecordID());
 		if (transactionEntity != null) {
 			this.apiTransaction = transactionEntity.synchronize(this.apiTransaction);
 		} else {
@@ -31,8 +31,8 @@ public class TransactionSaveCommand implements ResultCommandInterface<Transactio
 		}
 		
 		transactionEntity.save();
-		if ((new UUID(0, 0)).equals(this.apiTransaction.getId())) {
-			this.apiTransaction.setId(transactionEntity.getId());
+		if ((new UUID(0, 0)).equals(this.apiTransaction.getRecordID())) {
+			this.apiTransaction.setRecordID(transactionEntity.getID());
 		}
 		
 		return this.apiTransaction;

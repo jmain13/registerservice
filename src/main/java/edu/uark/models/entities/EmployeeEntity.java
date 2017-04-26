@@ -166,7 +166,7 @@ public class EmployeeEntity extends BaseEntity<EmployeeEntity> {
 	
 	public EmployeeEntity(UUID id) {
 		super(id, new EmployeeRepository());
-		
+		this.id = new UUID(0, 0);
 		this.active = false;
 		this.managerId = new UUID(0, 0);
 		this.lastName = StringUtils.EMPTY;
@@ -179,7 +179,7 @@ public class EmployeeEntity extends BaseEntity<EmployeeEntity> {
 
 	public EmployeeEntity(Employee apiEmployee) {
 		super(apiEmployee.getId(), new EmployeeRepository());
-		
+		this.id = apiEmployee.getId();
 		this.active = apiEmployee.getActive();
 		this.lastName = apiEmployee.getLastName();
 		this.password = apiEmployee.getPassword();

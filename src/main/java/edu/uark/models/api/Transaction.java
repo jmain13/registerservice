@@ -11,13 +11,21 @@ import edu.uark.models.enums.TransactionClassification;
 
 public class Transaction {
 	private UUID recordID;
-	
-//	
 	private int cashierID;
 	private int totalAmount;
-	private int transactionType;
+	private TransactionClassification transactionType;
 	private UUID referenceID;
 	private LocalDateTime createdOn;
+	
+	
+	public LocalDateTime getCreatedOn() {
+		return this.createdOn;
+	}
+	
+	public Transaction setCreatedOn(LocalDateTime createdOn) {
+		this.createdOn = createdOn;
+		return this;
+	}
 	
 	public int getCashierID(){
 		return this.cashierID;
@@ -25,15 +33,6 @@ public class Transaction {
 	
 	public Transaction setCashierID(int ID){
 		this.cashierID = ID;
-		return this;
-	}
-	
-	public int  getTotal(){
-		return this.total;
-	}
-	
-	public Transaction setTotal(int newTotal){
-		this.total = newTotal;
 		return this;
 	}
 	
@@ -46,11 +45,11 @@ public class Transaction {
 		return this;
 	}
 	
-	public int getTransactionType(){
+	public TransactionClassification getTransactionType(){
 		return this.transactionType;
 	}
 	
-	public Transaction setTransactionType(int newTransactionType){
+	public Transaction setTransactionType(TransactionClassification newTransactionType){
 		this.transactionType = newTransactionType;
 		return this;
 	}
@@ -65,10 +64,10 @@ public class Transaction {
 	}
 	//	
 	
-	public UUID getRecordId() {
+	public UUID getRecordID() {
 		return this.recordID;
 	}
-	public Transaction setRecordId(UUID id) {
+	public Transaction setRecordID(UUID id) {
 		this.recordID = id;
 		return this;
 	}
@@ -108,7 +107,7 @@ public class Transaction {
 	}
 	
 	public Transaction(TransactionEntity transactionEntity) {
-		this.recordID = transactionEntity.getRecordID();
+		this.recordID = transactionEntity.getID();
 		this.totalAmount = transactionEntity.getTotalAmount();
 		this.transactionType = transactionEntity.getTransactionType();
 		this.referenceID = transactionEntity.getReferenceID();

@@ -17,7 +17,7 @@ import edu.uark.models.repositories.ProductRepository;
 public class ProductEntity extends BaseEntity<ProductEntity> {
 	@Override
 	protected void fillFromRecord(ResultSet rs) throws SQLException {
-		this.id = rs.getObject(ProductFieldNames.ID);
+		this.id = (UUID) rs.getObject(ProductFieldNames.ID);
 		this.lookupCode = rs.getString(ProductFieldNames.LOOKUP_CODE);
 		this.quantity = rs.getInt(ProductFieldNames.QUANTITY);
 		this.price = rs.getDouble(ProductFieldNames.PRICE);
@@ -42,7 +42,7 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 		return this.id;
 	}
 	public ProductEntity setID(UUID id) {
-		if (this.id.compareTo(id) == 0) {
+		if (!this.id.equals(id)) {
 			this.id = id;
 			this.propertyChanged(ProductFieldNames.ID);
 		}
@@ -80,7 +80,7 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 	public double getPrice() {
 		return this.price;
 	}
-	public ProductEntity setPrice(int price) {
+	public ProductEntity setPrice(double price) {
 		if (this.price != price) {
 			this.price = price;
 			this.propertyChanged(ProductFieldNames.PRICE);
@@ -107,7 +107,7 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 		return this.createdOn;
 	}
 	public ProductEntity setCreatedOn(LocalDateTime createdOn) {
-		if (this.createdOn != createdOn) {
+		if (!this.createdOn.equals(createdOn)) {
 			this.createdOn = createdOn;
 			this.propertyChanged(ProductFieldNames.CREATED_ON);
 		}
@@ -118,6 +118,9 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 	public Product synchronize(Product apiProduct) {
 		this.setQuantity(apiProduct.getQuantity());
 		this.setLookupCode(apiProduct.getLookupCode());
+		this.setActive(apiProduct.getActive());
+		this.setID(apiProduct.getID());
+		this.setPrice(apiProduct.getPrice());
 		
 		apiProduct.setCreatedOn(this.createdOn);
 		
@@ -145,13 +148,11 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 	}
 
 	public ProductEntity(Product apiProduct) {
-		super(apiProduct.getId(), new ProductRepository());
-		
+		super(apiProduct.getID(), new ProductRepository());
 		this.quantity = apiProduct.getQuantity();
 		this.price = apiProduct.getPrice();
 		this.active = apiProduct.getActive();
 		this.lookupCode = apiProduct.getLookupCode();
-
 		this.createdOn = LocalDateTime.now();
 	}
 }

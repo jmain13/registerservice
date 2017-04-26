@@ -17,10 +17,10 @@ import edu.uark.dataaccess.repository.BaseRepositoryInterface;
 
 public abstract class BaseEntity<T extends BaseEntity<T>> {
 	protected UUID id;
-	public UUID getId() {
+	public UUID getID() {
 		return this.id;
 	}
-	public BaseEntity<T> setId(UUID id) {
+	public BaseEntity<T> setID(UUID id) {
 		this.id = id;
 		this.onIdSet();
 		

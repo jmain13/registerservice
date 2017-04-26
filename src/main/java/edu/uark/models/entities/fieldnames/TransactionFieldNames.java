@@ -8,5 +8,5 @@ public class TransactionFieldNames extends BaseFieldNames {
 	public static final String TOTAL_AMOUNT = "totalAmount";
 	public static final String TRANSACTION_TYPE = "transactionType";
 	public static final String REFERENCE_ID = "referenceID";
-	public static final String CREATEDON = "createdOn";
+	public static final String CREATED_ON = "createdOn";
 }

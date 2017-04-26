@@ -11,7 +11,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import edu.uark.dataaccess.entities.BaseEntity;
 import edu.uark.models.api.Transaction;
+import edu.uark.models.entities.fieldnames.ProductFieldNames;
 import edu.uark.models.entities.fieldnames.TransactionFieldNames;
+import edu.uark.models.enums.TransactionClassification;
 import edu.uark.models.repositories.TransactionRepository;
 
 public class TransactionEntity extends BaseEntity<TransactionEntity> {
@@ -20,7 +22,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 	private UUID recordID;
 	private int cashierID;
 	private int totalAmount;
-	private int transactionType;
+	private TransactionClassification transactionType;
 	private UUID referenceID;
 	private LocalDateTime createdOn;
 	
@@ -28,35 +30,36 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 		return this.cashierID;
 	}
 	
-	public Transaction setCashierID(int ID){
-		this.cashierID = ID;
+	public TransactionEntity setCashierID(int ID){
+		if (this.cashierID != ID) {
+			this.cashierID = ID;
+			this.propertyChanged(TransactionFieldNames.CASHIER_ID);
+		}
 		return this;
 	}
 	
-	public int  getTotal(){
-		return this.total;
-	}
-	
-	public Transaction setTotal(int newTotal){
-		this.total = newTotal;
-		return this;
-	}
 	
 	public int getTotalAmount(){
 		return this.totalAmount;
 	}
 	
-	public Transaction setTotalAmount(int newTotalAmount){
-		this.totalAmount = newTotalAmount;
+	public TransactionEntity setTotalAmount(int newTotalAmount){
+		if (this.totalAmount != newTotalAmount) {
+			this.totalAmount = newTotalAmount;
+			this.propertyChanged(TransactionFieldNames.TOTAL_AMOUNT);
+		}
 		return this;
 	}
 	
-	public int getTransactionType(){
+	public TransactionClassification getTransactionType(){
 		return this.transactionType;
 	}
 	
-	public Transaction setTransactionType(int newTransactionType){
-		this.transactionType = newTransactionType;
+	public TransactionEntity setTransactionType(TransactionClassification newTransactionType){
+		if (!this.transactionType.equals(newTransactionType)) {
+			this.transactionType = newTransactionType;
+			this.propertyChanged(TransactionFieldNames.TRANSACTION_TYPE);
+		}
 		return this;
 	}
 	
@@ -64,21 +67,46 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 		return this.referenceID;
 	}
 	
-	public Transaction setReferenceID(UUID newReferenceID){
-		this.referenceID = newReferenceID;
+	public TransactionEntity setReferenceID(UUID newReferenceID){
+		if (!this.referenceID.equals(newReferenceID)) {
+			this.referenceID = newReferenceID;
+			this.propertyChanged(TransactionFieldNames.REFERENCE_ID);
+		}
 		return this;
 	}
 	
-	//
+	public UUID getID(){
+		return this.recordID;
+	}
+	
+	public TransactionEntity setID(UUID ID){
+		if (!this.recordID.equals(ID)) {
+			this.recordID = ID;
+			this.propertyChanged(TransactionFieldNames.RECORD_ID);
+		}
+		return this;
+	}
+	
+	public LocalDateTime getCreatedOn() {
+		return this.createdOn;
+	}
+	
+	public TransactionEntity setCreatedOn(LocalDateTime createdOn) {
+		if (!this.createdOn.equals(createdOn)) {
+			this.createdOn = createdOn;
+			this.propertyChanged(TransactionFieldNames.CREATED_ON);
+		}
+		return this;
+	}
 
 	@Override
 	protected void fillFromRecord(ResultSet rs) throws SQLException {
-		this.recordID = rs.getObject(TransactionFieldNames.RECORD_ID); 
+		this.recordID = (UUID) rs.getObject(TransactionFieldNames.RECORD_ID); 
 		this.cashierID = rs.getInt(TransactionFieldNames.CASHIER_ID);
-		this.totalAmount = rs.getInt(TransactionFieldNames.TOTAL_AMOUNT;
-		this.transactionType = rs.getInt(TransactionFieldNames.TRANSACTION_TYPE);
-		this.referenceID = rs.getString(TransactionFieldNames.REFERENCE_ID;
-		this.createdOn = rs.getTimestamp(TransactionFieldNames.CREATEDON).toLocalDateTime();
+		this.totalAmount = rs.getInt(TransactionFieldNames.TOTAL_AMOUNT);
+		this.transactionType = (TransactionClassification) rs.getObject(TransactionFieldNames.TRANSACTION_TYPE);
+		this.referenceID = (UUID) rs.getObject(TransactionFieldNames.REFERENCE_ID);
+		this.createdOn = rs.getTimestamp(TransactionFieldNames.CREATED_ON).toLocalDateTime();
 	}
 
 	@Override
@@ -93,15 +121,12 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 		return record;
 	}
 
-
-	private LocalDateTime createdOn;
-	public LocalDateTime getCreatedOn() {
-		return this.createdOn;
-	}
-	
 	public Transaction synchronize(Transaction apiTransaction) {
-		this.setCount(apiTransaction.getCount());
-		this.setLookupCode(apiTransaction.getLookupCode());
+		this.setCashierID(apiTransaction.getCashierID());
+		this.setID(apiTransaction.getRecordID());
+		this.setReferenceID(apiTransaction.getReferenceID());
+		this.setTotalAmount(apiTransaction.getTotalAmount());
+		this.setTransactionType(apiTransaction.getTransactionType());
 		
 		apiTransaction.setCreatedOn(this.createdOn);
 		

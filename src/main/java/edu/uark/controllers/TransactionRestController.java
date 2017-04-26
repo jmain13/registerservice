@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.uark.commands.transactions.TransactionQuery;
-import edu.uark.commands.transactions.TransactionSaveCommand;
+import edu.uark.commands.transaction.TransactionQuery;
+import edu.uark.commands.transaction.TransactionSaveCommand;
 import edu.uark.models.api.Transaction;
 
 @RestController
