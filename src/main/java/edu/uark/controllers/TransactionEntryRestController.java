@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.uark.commands.transactionEntry.TransactionEntryByLookupCodeQuery;
 //import edu.uark.commands.transactionEntry.ProductByLookupCodeQuery;
 import edu.uark.commands.transactionEntry.TransactionEntryQuery;
 import edu.uark.commands.transactionEntry.TransactionEntrySaveCommand;
@@ -39,6 +40,13 @@ public class TransactionEntryRestController {
 			execute();
 	}
 
+	@RequestMapping(value = "/apiv0/byLookupCode/{transactionEntryLookupCode}", method = RequestMethod.GET)
+	public TransactionEntry getTransactionEntryByLookupCode(@PathVariable String entryLookupCode) {
+		return (new TransactionEntryByLookupCodeQuery()).
+			setLookupCode(entryLookupCode).
+			execute();
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test() {

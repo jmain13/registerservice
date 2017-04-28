@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import edu.uark.dataaccess.entities.BaseEntity;
 import edu.uark.models.api.Transaction;
-import edu.uark.models.entities.fieldnames.ProductFieldNames;
 import edu.uark.models.entities.fieldnames.TransactionFieldNames;
 import edu.uark.models.enums.TransactionClassification;
 import edu.uark.models.repositories.TransactionRepository;

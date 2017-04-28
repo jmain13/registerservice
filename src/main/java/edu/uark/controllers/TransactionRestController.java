@@ -18,20 +18,12 @@ import edu.uark.models.api.Transaction;
 public class TransactionRestController {
 	//open
 	//get
-	//close transaction
 	@RequestMapping(value = "/apiv0/{transactionId}", method = RequestMethod.GET)
 	public Transaction getTransaction(@PathVariable UUID transactionId) {
 		return (new TransactionQuery()).
 			setTransactionId(transactionId).
 			execute();
 	}
-
-	
-
-	/*@RequestMapping(value = "/apiv0/transactions", method = RequestMethod.GET)
-	public TransactionListing getTransactions() {
-		return (new TransactionsQuery()).execute();
-	}*/
 	
 	@RequestMapping(value = "/apiv0/", method = RequestMethod.PUT)
 	public Transaction putTransaction(@RequestBody Transaction transaction) {

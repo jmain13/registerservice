@@ -10,17 +10,17 @@ import edu.uark.models.repositories.interfaces.TransactionEntryRepositoryInterfa
 public class TransactionEntryQuery implements ResultCommandInterface<TransactionEntry>{
 	@Override
 	public TransactionEntry execute() {
-		return new TransactionEntry(this.transactionEntryRepository.get(this.productId)
+		return new TransactionEntry(this.transactionEntryRepository.get(this.transactionEntryId)
 		);
 	}
 
 	//Properties
-	private UUID productId;
-	public UUID getProductId() {
-		return this.productId;
+	private UUID transactionEntryId;
+	public UUID getTransactionEntryId() {
+		return this.transactionEntryId;
 	}
 	public TransactionEntryQuery setProductId(UUID productId) {
-		this.productId = productId;
+		this.transactionEntryId = productId;
 		return this;
 	}
 	
