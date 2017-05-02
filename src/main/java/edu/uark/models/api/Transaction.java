@@ -13,10 +13,20 @@ public class Transaction {
 	private UUID recordID;
 	private int cashierID;
 	private int totalQuantity;
+	private float totalPrice;
 	private TransactionClassification transactionType;
 	private UUID referenceID;
 	private LocalDateTime createdOn;
 	
+	
+	public float getTotalPrice() {
+		return this.totalPrice;
+	}
+	
+	public Transaction setTotalPrice(float total) {
+		this.totalPrice = total;
+		return this;
+	}
 	
 	public LocalDateTime getCreatedOn() {
 		return this.createdOn;

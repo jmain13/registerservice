@@ -21,9 +21,24 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 	private UUID recordID;
 	private int cashierID;
 	private int totalQuantity;
+	private float totalPrice;
 	private TransactionClassification transactionType;
 	private UUID referenceID;
 	private LocalDateTime createdOn;
+	
+	
+	public float getTotalPrice(){
+		return this.totalPrice;
+	}
+	
+	public TransactionEntity setTotalPrice(float total){
+		if (this.totalPrice != total) {
+			this.totalPrice = total;
+			this.propertyChanged(TransactionFieldNames.TOTAL_PRICE);
+		}
+		return this;
+	}
+	
 	
 	public int getCashierID(){
 		return this.cashierID;
@@ -103,6 +118,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 		this.recordID = (UUID) rs.getObject(TransactionFieldNames.RECORD_ID); 
 		this.cashierID = rs.getInt(TransactionFieldNames.CASHIER_ID);
 		this.totalQuantity = rs.getInt(TransactionFieldNames.TOTAL_QUANTITY);
+		this.totalPrice = rs.getFloat(TransactionFieldNames.TOTAL_PRICE);
 		this.transactionType = (TransactionClassification) rs.getObject(TransactionFieldNames.TRANSACTION_TYPE);
 		this.referenceID = (UUID) rs.getObject(TransactionFieldNames.REFERENCE_ID);
 		this.createdOn = rs.getTimestamp(TransactionFieldNames.CREATED_ON).toLocalDateTime();
@@ -113,6 +129,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 		record.put(TransactionFieldNames.RECORD_ID, this.recordID);
 		record.put(TransactionFieldNames.CASHIER_ID, this.cashierID);
 		record.put(TransactionFieldNames.TOTAL_QUANTITY, this.totalQuantity);
+		record.put(TransactionFieldNames.TOTAL_PRICE, this.totalPrice);
 		record.put(TransactionFieldNames.TRANSACTION_TYPE, this.transactionType);
 		record.put(TransactionFieldNames.REFERENCE_ID, this.referenceID);
 		record.put(TransactionFieldNames.CREATED_ON, Timestamp.valueOf(this.createdOn));
@@ -125,6 +142,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 		this.setID(apiTransaction.getRecordID());
 		this.setReferenceID(apiTransaction.getReferenceID());
 		this.setTotalQuantity(apiTransaction.getTotalQuantity());
+		this.setTotalPrice(apiTransaction.getTotalPrice());
 		this.setTransactionType(apiTransaction.getTransactionType());
 		
 		apiTransaction.setCreatedOn(this.createdOn);
@@ -135,6 +153,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 	public TransactionEntity() {
 		super(new TransactionRepository());
 		this.totalQuantity = 0;
+		this.totalPrice = 0;
 		this.transactionType = TransactionClassification.NOT_DEFINED;
 		this.referenceID = new UUID(0,0);
 		this.recordID = new UUID(0, 0);
@@ -144,6 +163,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 	public TransactionEntity(UUID id) {
 		super(id, new TransactionRepository());
 		this.totalQuantity = 0;
+		this.totalPrice = 0;
 		this.transactionType = TransactionClassification.NOT_DEFINED;
 		this.referenceID = new UUID(0,0);
 		this.recordID = id;
@@ -153,6 +173,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 	public TransactionEntity(Transaction apiTransaction) {
 		super(apiTransaction.getRecordID(), new TransactionRepository());
 		this.totalQuantity = apiTransaction.getTotalQuantity();
+		this.totalPrice = apiTransaction.getTotalPrice();
 		this.transactionType = apiTransaction.getTransactionType();
 		this.referenceID = apiTransaction.getReferenceID();
 		this.recordID = apiTransaction.getRecordID();
