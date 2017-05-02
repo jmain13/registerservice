@@ -14,7 +14,7 @@ import edu.uark.models.repositories.interfaces.TransactionEntryRepositoryInterfa
 public class TransactionEntrySaveCommand implements ResultCommandInterface<TransactionEntry> {
 	@Override
 	public TransactionEntry execute() {
-		if (StringUtils.isBlank(this.apiTransactionEntry.getplu())) {
+		if (StringUtils.isBlank(this.apiTransactionEntry.getlookupCode())) {
 			return (new TransactionEntry()).setApiRequestStatus(TransactionEntryApiRequestStatus.INVALID_INPUT);
 		}
 		
@@ -22,7 +22,7 @@ public class TransactionEntrySaveCommand implements ResultCommandInterface<Trans
 		if (transactionEntryEntity != null) {
 			this.apiTransactionEntry = transactionEntryEntity.synchronize(this.apiTransactionEntry);
 		} else {
-			transactionEntryEntity = this.transactionEntryRepository.byLookupCode(this.apiTransactionEntry.getplu());
+			transactionEntryEntity = this.transactionEntryRepository.byLookupCode(this.apiTransactionEntry.getlookupCode());
 			if (transactionEntryEntity == null) {
 				transactionEntryEntity = new TransactionEntryEntity(this.apiTransactionEntry);
 			} else {
@@ -31,8 +31,8 @@ public class TransactionEntrySaveCommand implements ResultCommandInterface<Trans
 		}
 		
 		transactionEntryEntity.save();
-		if ((new UUID(0, 0)).equals(this.apiTransactionEntry.getplu())) {
-			this.apiTransactionEntry.setplu(transactionEntryEntity.getplu());
+		if ((new UUID(0, 0)).equals(this.apiTransactionEntry.getlookupCode())) {
+			this.apiTransactionEntry.setlookupCode(transactionEntryEntity.getlookupCode());
 		}
 		
 		return this.apiTransactionEntry;

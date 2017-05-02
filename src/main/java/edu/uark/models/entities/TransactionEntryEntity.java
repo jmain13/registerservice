@@ -16,18 +16,18 @@ public class TransactionEntryEntity extends BaseEntity<TransactionEntryEntity> {
 	protected void fillFromRecord(ResultSet rs) throws SQLException {
 		this.entryId = ((UUID)rs.getObject(TransactionEntryFieldNames.ENTRY_ID));
 		this.fromTransaction = ((UUID)rs.getObject(TransactionEntryFieldNames.FROM_TRANSACTION));
-		this.plu = rs.getString(TransactionEntryFieldNames.PLU);
-		this.amount = rs.getInt(TransactionEntryFieldNames.AMOUNT);
-		this.soldAt = rs.getFloat(TransactionEntryFieldNames.SOLD_AT);
+		this.lookupCode = rs.getString(TransactionEntryFieldNames.LOOKUP_CODE);
+		this.quantity = rs.getInt(TransactionEntryFieldNames.QUANTITY);
+		this.price = rs.getFloat(TransactionEntryFieldNames.PRICE);
 	}
 
 	@Override
 	protected Map<String, Object> fillRecord(Map<String, Object> record) {
 		record.put(TransactionEntryFieldNames.ENTRY_ID, this.entryId);
 		record.put(TransactionEntryFieldNames.FROM_TRANSACTION, this.fromTransaction);
-		record.put(TransactionEntryFieldNames.PLU, this.plu);
-		record.put(TransactionEntryFieldNames.AMOUNT, this.amount);
-		record.put(TransactionEntryFieldNames.SOLD_AT, this.soldAt);
+		record.put(TransactionEntryFieldNames.LOOKUP_CODE, this.lookupCode);
+		record.put(TransactionEntryFieldNames.QUANTITY, this.quantity);
+		record.put(TransactionEntryFieldNames.PRICE, this.price);
 		
 		return record;
 	}
@@ -58,40 +58,40 @@ public class TransactionEntryEntity extends BaseEntity<TransactionEntryEntity> {
 		return this;
 	}
 	
-	private String plu;
-	public String getplu() {
-		return this.plu;
+	private String lookupCode;
+	public String getlookupCode() {
+		return this.lookupCode;
 	}
-	public TransactionEntryEntity setplu(String plu) {
-		if (!StringUtils.equals(this.plu, plu)) {
-			this.plu = plu;
-			this.propertyChanged(TransactionEntryFieldNames.PLU);
+	public TransactionEntryEntity setlookupCode(String lookupCode) {
+		if (!StringUtils.equals(this.lookupCode, lookupCode)) {
+			this.lookupCode = lookupCode;
+			this.propertyChanged(TransactionEntryFieldNames.LOOKUP_CODE);
 		}
 		
 		return this;
 	}
 	
-	private int amount;
-	public int getamount() {
-		return this.amount;
+	private int quantity;
+	public int getQuantity() {
+		return this.quantity;
 	}
-	public TransactionEntryEntity setamount(int amount) {
-		if (this.amount != amount) {
-			this.amount = amount;
-			this.propertyChanged(TransactionEntryFieldNames.AMOUNT);
+	public TransactionEntryEntity setQuantity(int quantity) {
+		if (this.quantity != quantity) {
+			this.quantity = quantity;
+			this.propertyChanged(TransactionEntryFieldNames.QUANTITY);
 		}
 		
 		return this;
 	}
 
-	private float soldAt;
-	public float getsoldAt() {
-		return this.soldAt;
+	private float price;
+	public float getPrice() {
+		return this.price;
 	}
-	public TransactionEntryEntity setsoldAt(float soldAt) {
-		if (this.soldAt != soldAt) {
-			this.soldAt = soldAt;
-			this.propertyChanged(TransactionEntryFieldNames.SOLD_AT);
+	public TransactionEntryEntity setPrice(float price) {
+		if (this.price != price) {
+			this.price = price;
+			this.propertyChanged(TransactionEntryFieldNames.PRICE);
 		}
 		
 		return this;
@@ -100,9 +100,9 @@ public class TransactionEntryEntity extends BaseEntity<TransactionEntryEntity> {
 	public TransactionEntry synchronize(TransactionEntry apiTransactionEntry) {
 		this.setentryId(apiTransactionEntry.getentryId());
 		this.setfromTransaction(apiTransactionEntry.getfromTransaction());
-		this.setplu(apiTransactionEntry.getplu());
-		this.setamount(apiTransactionEntry.getamount());
-		this.setsoldAt(apiTransactionEntry.getsoldAt());
+		this.setlookupCode(apiTransactionEntry.getlookupCode());
+		this.setQuantity(apiTransactionEntry.getQuantity());
+		this.setPrice(apiTransactionEntry.getPrice());
 		
 		return apiTransactionEntry;
 	}
@@ -112,17 +112,17 @@ public class TransactionEntryEntity extends BaseEntity<TransactionEntryEntity> {
 		
 		this.entryId = new UUID(0,0);
 		this.fromTransaction = new UUID(0,0);
-		this.plu = StringUtils.EMPTY;
-		this.amount = 0;
-		this.soldAt = 0;
+		this.lookupCode = StringUtils.EMPTY;
+		this.quantity = 0;
+		this.price = 0;
 	}
 	
 	public TransactionEntryEntity(TransactionEntry apiTransactionEntry){
 		super(apiTransactionEntry.getentryId(), new TransactionEntryRepository());
 		this.entryId = apiTransactionEntry.getentryId();
 		this.fromTransaction = apiTransactionEntry.getfromTransaction();
-		this.plu = apiTransactionEntry.getplu();
-		this.amount = apiTransactionEntry.getamount();
-		this.soldAt = apiTransactionEntry.getsoldAt();
+		this.lookupCode = apiTransactionEntry.getlookupCode();
+		this.quantity = apiTransactionEntry.getQuantity();
+		this.price = apiTransactionEntry.getPrice();
 	}
 }

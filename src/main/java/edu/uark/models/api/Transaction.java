@@ -12,7 +12,7 @@ import edu.uark.models.enums.TransactionClassification;
 public class Transaction {
 	private UUID recordID;
 	private int cashierID;
-	private int totalAmount;
+	private int totalQuantity;
 	private TransactionClassification transactionType;
 	private UUID referenceID;
 	private LocalDateTime createdOn;
@@ -36,12 +36,12 @@ public class Transaction {
 		return this;
 	}
 	
-	public int getTotalAmount(){
-		return this.totalAmount;
+	public int getTotalQuantity(){
+		return this.totalQuantity;
 	}
 	
-	public Transaction setTotalAmount(int newTotalAmount){
-		this.totalAmount = newTotalAmount;
+	public Transaction setTotalQuantity(int newTotalQuantity){
+		this.totalQuantity = newTotalQuantity;
 		return this;
 	}
 	
@@ -97,7 +97,7 @@ public class Transaction {
 	}
 	
 	public Transaction() {
-		this.totalAmount = 0;
+		this.totalQuantity = 0;
 		this.transactionType = TransactionClassification.NOT_DEFINED;
 		this.referenceID = new UUID(0,0);
 		this.recordID = new UUID(0, 0);
@@ -108,7 +108,7 @@ public class Transaction {
 	
 	public Transaction(TransactionEntity transactionEntity) {
 		this.recordID = transactionEntity.getID();
-		this.totalAmount = transactionEntity.getTotalAmount();
+		this.totalQuantity = transactionEntity.getTotalQuantity();
 		this.transactionType = transactionEntity.getTransactionType();
 		this.referenceID = transactionEntity.getReferenceID();
 		this.createdOn = transactionEntity.getCreatedOn();

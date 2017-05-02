@@ -26,30 +26,30 @@ public class TransactionEntry {
 		return this;
 	}
 	
-	private String plu;
-	public String getplu() {
-		return this.plu;
+	private String lookupCode;
+	public String getlookupCode() {
+		return this.lookupCode;
 	}
-	public TransactionEntry setplu(String plu) {
-		this.plu = plu;
+	public TransactionEntry setlookupCode(String lookupCode) {
+		this.lookupCode = lookupCode;
 		return this;
 	}
 	
-	private int amount;
-	public int getamount() {
-		return this.amount;
+	private int quantity;
+	public int getQuantity() {
+		return this.quantity;
 	}
-	public TransactionEntry setamount(int amount) {
-		this.amount = amount;
+	public TransactionEntry setQuantity(int quantity) {
+		this.quantity = quantity;
 		return this;
 	}
 
-	private float soldAt;
-	public float getsoldAt() {
-		return this.soldAt;
+	private float price;
+	public float getPrice() {
+		return this.price;
 	}
-	public TransactionEntry setsoldAt(float soldAt) {
-		this.soldAt = soldAt;
+	public TransactionEntry setPrice(float price) {
+		this.price = price;
 		return this;
 	}
 	
@@ -80,17 +80,17 @@ public class TransactionEntry {
 	public TransactionEntry() {
 		this.entryId = new UUID(0,0);
 		this.fromTransaction = new UUID(0,0);
-		this.plu = "";
-		this.amount = 0;
-		this.soldAt = 0;
+		this.lookupCode = "";
+		this.quantity = 0;
+		this.price = 0;
 	}
 	
 	public TransactionEntry(TransactionEntryEntity transactionEntryEntity) {
 		this.entryId = transactionEntryEntity.getentryId();
 		this.fromTransaction = transactionEntryEntity.getfromTransaction();
-		this.plu = transactionEntryEntity.getplu();
-		this.amount = transactionEntryEntity.getamount();
-		this.soldAt = transactionEntryEntity.getsoldAt();
+		this.lookupCode = transactionEntryEntity.getlookupCode();
+		this.quantity = transactionEntryEntity.getQuantity();
+		this.price = transactionEntryEntity.getPrice();
 
 		this.apiRequestMessage = StringUtils.EMPTY;
 		this.apiRequestStatus = TransactionEntryApiRequestStatus.OK;
